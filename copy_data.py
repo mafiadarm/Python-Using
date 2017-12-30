@@ -5,7 +5,7 @@ import datetime
 from os.path import join, getsize
 
 '''
-shutil 复制文件 shutil.copyfile
+shutil.copyfile
 os.path.exists, os.path.makedirs, os.path.mkdir, os.remove
 join(path, file) getsize(file)
 '''
@@ -20,7 +20,6 @@ join(path, file) getsize(file)
     复制一个，校验大小，相等则复制成功，写进日志
 
 校验E盘所有文件，是否都拷贝到对应盘
-    再次生成
     如果没有，重新执行copy[自动覆盖]
 
 写入日志，并拷贝到目标盘
