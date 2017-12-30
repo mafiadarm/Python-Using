@@ -79,7 +79,7 @@ if __name__ == '__main__':
         logg_Text = "E:\\log.txt"
         source_folder = "E:\\n_bak"
         a, b, c, d, e, f, g, *h = time.localtime(time.time())
-        folder_name = "{}_{}_{}_{}{}{}".format(a, b, c, d, e, f)
+        folder_name = "{}_{}_{}_{}{}{}".format(a, b, c, "%02.f"%d, "%02.f"%e, "%02.f"%f)
         target_folder_x = "x:\\" + folder_name
         target_folder_y = "y:\\" + folder_name
         source_size = sum([getsize(join(path, file)) for path, _, files in os.walk(source_folder) for file in files])
