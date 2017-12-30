@@ -3,26 +3,10 @@ import shutil
 import os
 import datetime
 from os.path import join, getsize
-
 '''
 shutil.copyfile
 os.path.exists, os.path.makedirs, os.path.mkdir, os.remove
 join(path, file) getsize(file)
-'''
-'''
-区分 日备 周备【文件是已经备份好了的情况下】
-日备拷贝在2点进行
-周备拷贝在5点进行
-从E盘复制到对应盘 【拷贝只会对关闭的文件做动作】
-    遍历E文件夹，写进列表，一个一个的提出来复制到目标
-        判断是否有该文件夹，如没有，新建其
-        如果有，就直接复制过去
-    复制一个，校验大小，相等则复制成功，写进日志
-
-校验E盘所有文件，是否都拷贝到对应盘
-    如果没有，重新执行copy[自动覆盖]
-
-写入日志，并拷贝到目标盘
 '''
 
 
