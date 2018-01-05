@@ -43,7 +43,7 @@ class CopyWork:
         source_folder_size = sum([getsize(file) for file in source_folder_files])
         target_folder_files = [join(path, file) for path, _, files in os.walk(self.TargetFolder) for file in files]
         target_folder_size = sum([getsize(file) for file in target_folder_files])
-        if source_folder_size == target_folder_size:
+        if source_folder_size == target_folder_size and set(source_folder_files) == set(target_folder_files):
             print("-*- All of Files in %s and Start Write Log -*-\n" % self.TargetFolder)
             self.log_write(source_folder_size, target_folder_size)
             print("-*- Delete Source Files and Ending -*-\n")
@@ -58,6 +58,7 @@ class CopyWork:
 
     def log_write(self, source_folder_size, target_folder_size):
         self.log_messages.append("[{}] from：{}\n[{}] from：{}\n".format(source_folder_size, self.SourceFolder, target_folder_size, self.TargetFolder))
+        sorted(self.log_messages)
         with open(self.log, "a+") as logg:
             logg.writelines(self.log_messages)
         print("-*- Copy log.txt to %s -*-\n" % self.TargetFolder)
@@ -80,7 +81,8 @@ if __name__ == '__main__':
             start_copy = CopyWork(logg_Text, source_folder, target_folder_x)
         elif d == 5 and g == 5 and source_size:
             start_copy = CopyWork(logg_Text, source_folder, target_folder_y)
-        time.sleep(1800)
         print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
+        time.sleep(1800)
+
 
 
