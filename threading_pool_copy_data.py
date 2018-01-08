@@ -1,9 +1,11 @@
+# encoding=utf-8
 import time
 import shutil
 import os
 import datetime
 from os.path import join, getsize
 from multiprocessing.dummy import Pool
+'''如果线程内拷贝的文件总大小超过内存，就会自动关掉'''
 
 
 class CopyWork:

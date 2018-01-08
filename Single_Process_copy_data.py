@@ -22,7 +22,6 @@ class CopyWork(object):
         self.ready_copy()
         self.check_folder()
 
-
     def ready_copy(self):
         print("\n-*- For Ready Copy to %s -*-\n" % self.TargetFolder)
         for source_file_name in self.file_names:  # 遍历准备复制的列表[文件全路径]
@@ -74,6 +73,7 @@ class CopyWork(object):
             print("-*- Copy log.txt to %s -*-\n" % self.TargetFolder)
             shutil.copyfile(self.log, join(self.TargetFolder, "log.txt"))  # 复制日志到目标文件夹
             os.remove(self.log)  # 删除原文件夹
+
 
 if __name__ == '__main__':
     print("Start From ", datetime.datetime.now().strftime("%c"))
