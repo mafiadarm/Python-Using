@@ -34,6 +34,7 @@ class CopyWork(object):
         if not os.path.exists(target_path):  # 判断是否有路径
             os.makedirs(target_path)  # 没有就新建
         shutil.copyfile(source_file_name, target_file_name)  # 复制文件
+
         if getsize(source_file_name) == getsize(target_file_name):  # 如果两边文件相等
             print("-*- %s Already Copy and Success -*-\n" % source_file_name)
             self.log_messages.append("[{}] Already Copy From {}\n".format(getsize(source_file_name), source_file_name))  # 写入日志
