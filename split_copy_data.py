@@ -15,6 +15,9 @@ import time
 import shutil
 import os
 from os.path import join, getsize
+import sys
+sys.path.append("..")
+
 
 __author__ = 'Loffew'
 
@@ -28,6 +31,9 @@ def deleteOldFile(old_folder):
     for file in old_folder:
         os.remove(file)
 
+def main():
+    while True:
+        CopyWork()
 
 class CopyWork:
     def __int__(self):
@@ -105,6 +111,6 @@ class CopyWork:
         else:
             print("有文件没拷贝到", self.NEWPATH)
 
+
 if __name__ == '__main__':
-    while True:
-        start = CopyWork()
+    main()
