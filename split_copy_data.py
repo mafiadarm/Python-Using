@@ -4,9 +4,11 @@
    Date:           01_30_2018  16:23
    File Name:      /GitHub/split_copy_data
    Creat From:     PyCharm
-   Python version: 拷贝服务器备份，每周一次，每次把整备和差异分开
+   Python version: 3.6.2
 - - - - - - - - - - - - - - - 
    Description:
+   a 现在的备份计划为：周一做整备，周二到周五晚上做差异
+   b 拷贝服务器备份，每周一次，每次把整备和差异分开
 ==============================
 """
 
@@ -15,8 +17,6 @@ import time
 import shutil
 import os
 from os.path import join, getsize
-import sys
-sys.path.append("..")
 
 
 __author__ = 'Loffew'
@@ -31,31 +31,18 @@ def deleteOldFile(old_folder):
     for file in old_folder:
         os.remove(file)
 
-def main():
-    while True:
-        CopyWork()
-
 class CopyWork:
     def __int__(self):
         a, b, c, d, e, f, g, *h = time.localtime(time.time())
-        '''
-        a = year
-        b = month
-        c = day
-        d = hour
-        e = minute
-        f = second
-        g = week [0, 1, 2, 3, 4, 5, 6]
-        '''
-        self.NEWPATH = "{}_{}_{}_{}{}{}".format(a, b, c, "%02.f" % d, "%02.f" % e, "%02.f" % f)  # 格式化文件名
-        self.OLDPATH = "E:\\n_bak"
-
-        self.folder_file = {}  # {文件夹:{文件大小:文件}}
-        self.folder_list = []  # 批量创建路径
-        self.full_file = []  # 完整备份文件路径
-
         time.sleep(f)
-        if d == 3 and g == 4:  # 周五早上3点钟
+        if g == 5 and d == 4:  # 周六早上4点开始拷
+            self.NEWPATH = "{}_{}_{}_{}{}{}".format(a, b, c, "%02.f" % d, "%02.f" % e, "%02.f" % f)  # 格式化文件名
+            self.OLDPATH = "E:\\n_bak"
+
+            self.folder_file = {}  # {文件夹:{文件大小:文件}}
+            self.folder_list = []  # 批量创建路径
+            self.full_file = []  # 完整备份文件路径
+
             self.getDict()
             self.getFullFile()
             self.makePath()
@@ -63,8 +50,6 @@ class CopyWork:
             self.copyDifferent()
             self.checkFolder()
             time.sleep(3600)
-        else:
-            return False
 
     def getDict(self):
         # 记录大小到字典
@@ -109,8 +94,11 @@ class CopyWork:
         if sum(old_size) == sum(y_f + x_f):
             deleteOldFile(old_folder)
         else:
-            print("有文件没拷贝到", self.NEWPATH)
+            print("异常，请重新执行", self.NEWPATH)
 
+def main():
+    while True:
+        CopyWork()
 
 if __name__ == '__main__':
     main()
