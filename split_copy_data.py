@@ -28,20 +28,22 @@ def pp_dbg(*args):
     return logging.debug(*args)
 
 def deleteOldFile(old_folder):
+    print("deleteOldFile")
     for file in old_folder:
         os.remove(file)
 
 class CopyWork:
-    def __int__(self):
+    def __init__(self):
         a, b, c, d, e, f, g, *h = time.localtime(time.time())
         time.sleep(f)
-        if g == 5 and d == 4:  # 周六早上4点开始拷
-            self.NEWPATH = "{}_{}_{}_{}{}{}".format(a, b, c, "%02.f" % d, "%02.f" % e, "%02.f" % f)  # 格式化文件名
+        if g == 5 and d == 3:  # g = weeks d = hours
+            print("start work")
+            self.NEWPATH = "{}_{}_{}_{}{}{}".format(a, b, c, "%02.f" % d, "%02.f" % e, "%02.f" % f)
             self.OLDPATH = "E:\\n_bak"
 
-            self.folder_file = {}  # {文件夹:{文件大小:文件}}
-            self.folder_list = []  # 批量创建路径
-            self.full_file = []  # 完整备份文件路径
+            self.folder_file = {}  # {folder:{file:size}}
+            self.folder_list = []
+            self.full_file = []
 
             self.getDict()
             self.getFullFile()
@@ -49,44 +51,49 @@ class CopyWork:
             self.copyFullFile()
             self.copyDifferent()
             self.checkFolder()
+            print("finish work")
             time.sleep(3600)
 
     def getDict(self):
-        # 记录大小到字典
+        print("getDict")
         for folderpath, _, filenames in os.walk(self.OLDPATH):
             self.folder_list.append(folderpath)
             self.folder_file[folderpath] = {}
             for filename in filenames:
-                self.folder_file[folderpath][getsize(join(folderpath, filename))] = filename
+                self.folder_file[folderpath][filename] = getsize(join(folderpath, filename))
 
     def getFullFile(self):
-        for folderpath, file_size in self.folder_file.items():  # 挑选最大尺寸的文件到 full_file
+        print("getFullFile")
+        for folderpath, file_size in self.folder_file.items():
             if 0 != len(file_size):
-                size_key = max(file_size)
-                self.full_file.append(join(folderpath, file_size.get(size_key)))
-                self.folder_file[folderpath].pop(size_key)
+                size_key = max(file_size, key=file_size.get)
+                self.full_file.append(join(folderpath, size_key))
+                file_size.pop(size_key)
 
     def makePath(self):
-        for path in self.folder_list:  # 建好所有路径
+        print("makePath")
+        for path in self.folder_list:
             y = path.replace(self.OLDPATH, "y:\\" + self.NEWPATH)
             x = path.replace(self.OLDPATH, "x:\\" + self.NEWPATH)
             os.makedirs(y)
             os.makedirs(x)
 
     def copyFullFile(self):
-        # 到此full_file[列表]里面的都是完整备份，folder_file[嵌套字典]里面的都是差异备份
+        print("copyFullFile")
         for file_path in self.full_file:
             new_path = file_path.replace(self.OLDPATH, "y:\\" + self.NEWPATH)
             shutil.copy(file_path, new_path)
 
     def copyDifferent(self):
+        print("copyDifferent")
         for folder_path, files in self.folder_file.items():
-            for size, file in files.items():
-                new_folder = folder_path.replace(self.OLDPATH, "x:\\" + self.NEWPATH)
-                shutil.copy(join(folder_path, file), join(new_folder, file))
+            if 0 != len(files):
+                for file, _ in files.items():
+                    new_folder = folder_path.replace(self.OLDPATH, "x:\\" + self.NEWPATH)
+                    shutil.copy(join(folder_path, file), join(new_folder, file))
 
     def checkFolder(self):
-        # 校验一下，就删除源文件
+        print("checkFolder")
         old_folder = [join(path, file) for path, _, files in os.walk(self.OLDPATH) for file in files]
         old_size = [getsize(file) for file in old_folder]
         y_f = [getsize(join(path, file)) for path, _, files in os.walk("y:\\" + self.NEWPATH) for file in files]
@@ -94,7 +101,7 @@ class CopyWork:
         if sum(old_size) == sum(y_f + x_f):
             deleteOldFile(old_folder)
         else:
-            print("异常，请重新执行", self.NEWPATH)
+            print("Something wrong, Please again", self.NEWPATH)
 
 def main():
     while True:
