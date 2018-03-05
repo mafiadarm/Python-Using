@@ -27,13 +27,23 @@ def pp_dbg(*args):
     return logging.debug(*args)
 
 
+def getWeekDay(func):
+    def week(*args, **kwargs):
+        return datetime.datetime.strptime(func(*args, **kwargs), "%Y%m%d").weekday()  # [0-6]
+    return week
+
+
+@getWeekDay
 def getFileDate(filename):
     regx = re.compile(r'.*backup_([0-9_]{10}).*')
-    date = regx.findall(filename)[0].split("_")
-    return int("".join(date))
+    date = regx.findall(filename)[0]
+    return date.replace("_", "")
 
-def getWeekDay(date):
-    return datetime.datetime.strptime(str(date), "%Y%m%d").weekday()  # [0-6]
+
+@getWeekDay
+def getTodayWeek():
+    return str(datetime.date.today()).replace("-", "")
+
 
 def getThisWeeksRange():
     week = datetime.date.today()
@@ -46,8 +56,8 @@ def getThisWeeksRange():
         flag = datetime.date(year, month, day).weekday()
 
     start_day = str(datetime.date(year, month, day))
-    start_day = int("".join(start_day.split("-")))
-    return [start_day + i for i in range(6)]
+    start_day = int(start_day.replace("-", ""))
+    return [str(start_day + i) for i in range(6)]
 
 if __name__ == '__main__':
     pass

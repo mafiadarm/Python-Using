@@ -24,12 +24,13 @@
 """
 
 import logging
-from days_list import getFileDate, getThisWeeksRange, getWeekDay
+from days_list import getFileDate, getThisWeeksRange, getTodayWeek
 from check_folder import checkXY
 from make_folder import creatFolderName
 from get_files import getFileList, getBiggerFileList, getSmallFilesList
 from copy_files import copyFile
 from delete_folder import deleteFiles
+from plan import sleep_second
 from multiprocessing.dummy import Pool
 from tqdm import tqdm
 
@@ -44,43 +45,51 @@ logging.basicConfig(level=logging.DEBUG, format=" %(asctime)s - %(levelname)s - 
 def pp_dbg(*args):
     return logging.debug(*args)
 
+
 def close(pool):
     pool.close()
     pool.join()
 
 
-if __name__ == '__main__':
-    while not checkXY():
-        input("If folder is ready, press any key.")
+def file_name(file):
+    if not getFileDate(file): f_name = y_name
+    else: f_name = x_name
+    return f_name
 
-    small = Pool()
-    big = Pool()
 
-    this_week = getThisWeeksRange()
-
-    name = creatFolderName()
-    x_name = "x:/" + name
-    y_name = "y:/" + name
+def main():
     source_folder = "e:/n_bak"
 
-    all_file_list = getFileList(source_folder)
-    other_week_files = [file for file in all_file_list if getFileDate(file) not in this_week]
+    other_week_files = [file for file in getFileList(source_folder) if getFileDate(file) not in getThisWeeksRange()]
+    if not other_week_files and getTodayWeek() == 6:
+        other_week_files = [file for file in getFileList(source_folder)]
 
     big_list = getBiggerFileList(other_week_files)
     small_list = getSmallFilesList(other_week_files)
 
     for file in tqdm(small_list):
-        if not getWeekDay(getFileDate(file)): f_name = y_name
-        else: f_name = x_name
+        f_name = file_name(file)
         small.apply_async(copyFile, args=(file, source_folder, f_name,))
-        print(file)
     close(small)
 
     for file in tqdm(big_list):
-        if not getWeekDay(getFileDate(file)): f_name = y_name
-        else: f_name = x_name
-        copyFile(file, source_folder, f_name,)
-        print(file)
+        f_name = file_name(file)
+        copyFile(file, source_folder, f_name)
 
     big_list.extend(small_list)
     deleteFiles(big_list)
+
+    sleep_second()
+
+if __name__ == '__main__':
+    while True:
+        while not checkXY():
+            input("If folder is ready, Press Enter")
+
+        small = Pool()
+
+        name = creatFolderName()
+        x_name = "x:/" + name
+        y_name = "y:/" + name
+
+        main()
