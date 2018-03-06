@@ -42,6 +42,11 @@ def getFileList(folder_path):
     return file_path_list
 
 def getSmallFilesList(file_list):
+    """
+    extract file size less than and equal to 50M
+    :param file_list:
+    :return: list
+    """
     small_list = []
     for file in file_list:
         if os.path.getsize(file) <= 50000000:  # bit
@@ -49,6 +54,11 @@ def getSmallFilesList(file_list):
     return small_list
 
 def getBiggerFileList(file_list):
+    """
+    extract file size great than 50M
+    :param file_list:
+    :return: list
+    """
     bigger_list = []
     for file in file_list:
         if os.path.getsize(file) > 50000000:  # bit

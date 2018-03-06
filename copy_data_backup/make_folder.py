@@ -27,11 +27,21 @@ def pp_dbg(*args):
     return logging.debug(*args)
 
 def creatFolderName():
+    """
+    To creat a name from time
+    :return: "2018_09_09_120000"
+    """
     a, b, c, d, e, f, g, *h = time.localtime(time.time())
     folder_name = "{}_{}_{}_{}{}{}".format(a, b, c, "%02.f" % d, "%02.f" % e, "%02.f" % f)
     return folder_name
 
 def creatNewFolder(file_path):
+    """
+    Split a folder path in file_path.
+    If have no path, creat a new's.
+    :param file_path:
+    :return:
+    """
     path, file = os.path.split(file_path)
     if not os.path.exists(path):
         os.makedirs(path)

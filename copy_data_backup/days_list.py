@@ -8,6 +8,7 @@
     Python version: 3.6.2  
 - - - - - - - - - - - - - - - 
     Description:
+    This py is about get when creat in filename.
 ==============================
 """
 
@@ -28,24 +29,45 @@ def pp_dbg(*args):
 
 
 def getWeekDay(func):
+    """
+    Get week day
+    :param func: any function
+    :return: [0-6]
+    """
     def week(*args, **kwargs):
-        return datetime.datetime.strptime(func(*args, **kwargs), "%Y%m%d").weekday()  # [0-6]
+        return datetime.datetime.strptime(func(*args, **kwargs), "%Y%m%d").weekday()
     return week
 
 
-@getWeekDay
 def getFileDate(filename):
+    """
+    Use re module to get info.
+    Get creat datetime in filename.
+    :param filename:
+    :return: like "20180909"
+    """
     regx = re.compile(r'.*backup_([0-9_]{10}).*')
     date = regx.findall(filename)[0]
     return date.replace("_", "")
 
 
+def getFileWeek(filename):
+    return getWeekDay(getFileDate(filename))
+
+
 @getWeekDay
 def getTodayWeek():
+    """
+    Use string to get a datetime
+    :return: like "2018-09-09"
+    """
     return str(datetime.date.today()).replace("-", "")
 
 
 def getThisWeeksRange():
+    """
+    :return: this week days in list
+    """
     week = datetime.date.today()
     year, month, day = str(week).split("-")
     year, month, day = int(year), int(month), int(day)

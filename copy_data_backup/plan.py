@@ -8,6 +8,7 @@
   Python version: 3.6.2
 - - - - - - - - - - - - - - - 
   Description:
+  Time and Plan relate
 ==============================
 """
 import logging
@@ -27,23 +28,34 @@ def pp_dbg(*args):
 
 
 def timestamp(t):
+    """
+    format time to "%Y-%m-%d %H:%M:%S" and let it be timestamp
+    :param t: like "2018-09-09 12:00:00"
+    :return: a timestamp of int
+    """
     timeArray = time.strptime(t, "%Y-%m-%d %H:%M:%S")
     return int(time.mktime(timeArray))
 
 
 def sleep_second():
+    """
+    Target is SATURDAY 12:00:00
+    From now to target time, count seconds and sleep in
+    :return:
+    """
     target_day = datetime.date.today()
     one_day = datetime.timedelta(days=1)
 
     while target_day.weekday() != calendar.SATURDAY: target_day += one_day
     target_day = target_day.strftime("%Y-%m-%d")
 
-    target = "{} 4:00:00".format(target_day)[:19]
+    target = "{} 12:00:00".format(target_day)[:19]
     now = str(datetime.datetime.now())[:19]
 
     diff = timestamp(target) - timestamp(now)
 
-    print("The next copy progress is:")
+    print("The next copy at next SATURDAY 12:00:00\nPROCESS:")
+    time.sleep(0.01)
     [time.sleep(1) for t in tqdm(range(diff))]
 
 

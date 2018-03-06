@@ -17,14 +17,16 @@
             Get source path and targe path to list.
                 If size greater than 50M, in a list, other size in a list
         Copy small file be Threading pool first.
-        Copy bigger file be Threading.
-        Check file in MD5, if error, copy again.
+        Copy bigger file be in Order.
+        Check file in MD5, if error, copy again.[undo]
         Delete source files.
 ==============================
 """
 
 import logging
-from days_list import getFileDate, getThisWeeksRange, getTodayWeek
+
+import time
+from days_list import getFileDate, getThisWeeksRange, getTodayWeek, getFileWeek
 from check_folder import checkXY
 from make_folder import creatFolderName
 from get_files import getFileList, getBiggerFileList, getSmallFilesList
@@ -47,19 +49,29 @@ def pp_dbg(*args):
 
 
 def close(pool):
+    """
+    Guard pool process
+    In order [close and join]
+    :param pool: pool variable name
+    :return:
+    """
     pool.close()
     pool.join()
 
 
 def file_name(file):
-    if not getFileDate(file): f_name = y_name
+    """
+    Ues week code [0-6] decide file name.
+    File name decide files where to go.
+    :param file:
+    :return: finally target
+    """
+    if not getFileWeek(file): f_name = y_name
     else: f_name = x_name
     return f_name
 
 
 def main():
-    source_folder = "e:/n_bak"
-
     other_week_files = [file for file in getFileList(source_folder) if getFileDate(file) not in getThisWeeksRange()]
     if not other_week_files and getTodayWeek() == 6:
         other_week_files = [file for file in getFileList(source_folder)]
@@ -67,11 +79,15 @@ def main():
     big_list = getBiggerFileList(other_week_files)
     small_list = getSmallFilesList(other_week_files)
 
+    print("SMALL FILE PROCESS")
+    time.sleep(0.5)
     for file in tqdm(small_list):
         f_name = file_name(file)
         small.apply_async(copyFile, args=(file, source_folder, f_name,))
     close(small)
 
+    print("BIG FILE PROCESS")
+    time.sleep(0.5)
     for file in tqdm(big_list):
         f_name = file_name(file)
         copyFile(file, source_folder, f_name)
@@ -79,6 +95,7 @@ def main():
     big_list.extend(small_list)
     deleteFiles(big_list)
 
+    time.sleep(0.5)
     sleep_second()
 
 if __name__ == '__main__':
@@ -88,6 +105,7 @@ if __name__ == '__main__':
 
         small = Pool()
 
+        source_folder = "e:/n_bak"
         name = creatFolderName()
         x_name = "x:/" + name
         y_name = "y:/" + name

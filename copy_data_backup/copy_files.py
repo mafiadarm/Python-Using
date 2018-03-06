@@ -28,6 +28,13 @@ def pp_dbg(*args):
 
 
 def copyFile(file, source, targ):
+    """
+    Copy file to target folder
+    :param file: file
+    :param source: source folder
+    :param targ: target folder
+    :return:
+    """
     new_file = file.replace(source, targ)
     creatNewFolder(new_file)
     shutil.copyfile(file, new_file)

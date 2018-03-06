@@ -28,14 +28,20 @@ def pp_dbg(*args):
 
 files = Pool()
 
-
 def deleteFiles(file_path_list):
+    """
+    Delete file of file_path_list in Threading pool
+    :param file_path_list: a list have file_path
+    :return:
+    """
     if not file_path_list:
-        print("there is no files be delete.")
+        print("there is no files will to be delete.\n")
         return
-    [files.apply_async(os.remove, args=(file,)) for file in file_path_list]
-    files.close()
-    files.join()
+    else:
+        [files.apply_async(os.remove, args=(file,)) for file in file_path_list]
+        files.close()
+        files.join()
+        print("DELETE END\n")
 
 
 if __name__ == '__main__':

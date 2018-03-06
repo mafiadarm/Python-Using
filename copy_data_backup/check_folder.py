@@ -27,6 +27,11 @@ def pp_dbg(*args):
     return logging.debug(*args)
 
 def checkXY():
+    """
+    Check x and y whether creat or connect
+    True have condition both of xy
+    :return:
+    """
     if os.path.exists("x:/") and os.path.exists("y:/"):
         return True
     print("Please check x: and y:")
