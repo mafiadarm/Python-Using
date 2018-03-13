@@ -73,8 +73,7 @@ def file_name(file):
 
 def main():
     other_week_files = [file for file in getFileList(source_folder) if getFileDate(file) not in getThisWeeksRange()]
-    if not other_week_files and getTodayWeek() == 6:
-        other_week_files = [file for file in getFileList(source_folder)]
+    if not other_week_files and getTodayWeek() == 5: other_week_files = getFileList(source_folder)
 
     big_list = getBiggerFileList(other_week_files)
     small_list = getSmallFilesList(other_week_files)

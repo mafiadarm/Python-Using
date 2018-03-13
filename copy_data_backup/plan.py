@@ -56,7 +56,9 @@ def sleep_second():
 
     print("The next copy at next SATURDAY 12:00:00\nPROCESS:")
     time.sleep(0.01)
-    [time.sleep(1) for t in tqdm(range(diff))]
+    [time.sleep(1) for _ in tqdm(range(diff))]
 
+if __name__ == '__main__':
+    pass
 
 

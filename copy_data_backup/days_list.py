@@ -52,7 +52,14 @@ def getFileDate(filename):
 
 
 def getFileWeek(filename):
-    return getWeekDay(getFileDate(filename))
+    """
+    Example:
+        Filename format like ROSUNCAIWU_backup_2018_03_09_013001_4402415
+        Get 2018-03-09 then get the week
+    :param filename:
+    :return: [0 - 6]
+    """
+    return getWeekDay(getFileDate)(filename)
 
 
 @getWeekDay
