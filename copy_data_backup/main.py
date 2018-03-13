@@ -17,14 +17,12 @@
             Get source path and targe path to list.
                 If size greater than 50M, in a list, other size in a list
         Copy small file be Threading pool first.
-        Copy bigger file be in Order.
-        Check file in MD5, if error, copy again.[undo]
+        Copy bigger file be in Order. Meanwhile check file in MD5, if error, copy again.
         Delete source files.
 ==============================
 """
 
 import logging
-
 import time
 from days_list import getFileDate, getThisWeeksRange, getTodayWeek, getFileWeek
 from check_folder import checkXY
@@ -47,18 +45,6 @@ logging.basicConfig(level=logging.DEBUG, format=" %(asctime)s - %(levelname)s - 
 def pp_dbg(*args):
     return logging.debug(*args)
 
-
-def close(pool):
-    """
-    Guard pool process
-    In order [close and join]
-    :param pool: pool variable name
-    :return:
-    """
-    pool.close()
-    pool.join()
-
-
 def file_name(file):
     """
     Ues week code [0-6] decide file name.
@@ -79,20 +65,21 @@ def main():
     small_list = getSmallFilesList(other_week_files)
 
     print("SMALL FILE PROCESS")
-    time.sleep(0.5)
     for file in tqdm(small_list):
         f_name = file_name(file)
-        small.apply_async(copyFile, args=(file, source_folder, f_name,))
-    close(small)
+        small.apply(copyFile, args=(file, source_folder, f_name,))
+        # small.apply_async(copyFile, args=(file, source_folder, f_name,))
 
-    print("BIG FILE PROCESS")
+    small.close()
+    small.join()
+
     time.sleep(0.5)
+    print("BIG FILE PROCESS")
     for file in tqdm(big_list):
         f_name = file_name(file)
         copyFile(file, source_folder, f_name)
 
-    big_list.extend(small_list)
-    deleteFiles(big_list)
+    deleteFiles(other_week_files)
 
     time.sleep(0.5)
     sleep_second()
@@ -102,7 +89,7 @@ if __name__ == '__main__':
         while not checkXY():
             input("If folder is ready, Press Enter")
 
-        small = Pool()
+        small = Pool(4)
 
         source_folder = "e:/n_bak"
         name = creatFolderName()

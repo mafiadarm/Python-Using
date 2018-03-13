@@ -14,6 +14,7 @@
 import logging
 import shutil
 from make_folder import creatNewFolder
+from verify_md5 import getFileMD5
 
 __author__ = 'Loffew'
 
@@ -38,3 +39,8 @@ def copyFile(file, source, targ):
     new_file = file.replace(source, targ)
     creatNewFolder(new_file)
     shutil.copyfile(file, new_file)
+
+    source_md5 = getFileMD5(file)
+    target_md5 = getFileMD5(new_file)
+    if source_md5 != target_md5:
+        copyFile(file, source, targ)

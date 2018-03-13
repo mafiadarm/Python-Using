@@ -37,6 +37,13 @@ def checkXY():
     print("Please check x: and y:")
     return False
 
+def getAllFile(*args):
+    fileList = []
+    for folder in args:
+        fileList.extend([os.path.join(p, f) for p, _, fs in os.walk(folder) for f in fs])
+    return fileList
+
+
 if __name__ == '__main__':
     pass
 
