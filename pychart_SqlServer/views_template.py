@@ -13,9 +13,6 @@
 """
 __author__ = 'Loffew'
 
-import datetime
-import random
-import math
 from make_data import *
 from connection import *
 from random import randint
