@@ -127,7 +127,7 @@ def main():
 
     db = "ROSUNHB"
     user = "sa"
-    password = "UntXSO1X653Y"
+    password = ""
 
     #这边可以根据不同的参数选择不同的操作
     #我是使用了两个文件，一个是导入一个导出

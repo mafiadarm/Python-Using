@@ -13,7 +13,6 @@
 
 import logging
 import os
-from multiprocessing.dummy import Pool
 
 __author__ = 'Loffew'
 
@@ -26,11 +25,10 @@ logging.basicConfig(level=logging.DEBUG, format=" %(asctime)s - %(levelname)s - 
 def pp_dbg(*args):
     return logging.debug(*args)
 
-files = Pool()
 
 def deleteFiles(file_path_list):
     """
-    Delete file of file_path_list in Threading pool
+    Delete file in list
     :param file_path_list: a list have file_path
     :return:
     """
@@ -38,9 +36,9 @@ def deleteFiles(file_path_list):
         print("there is no files will to be delete.\n")
         return
     else:
-        [files.apply_async(os.remove, args=(file,)) for file in file_path_list]
-        files.close()
-        files.join()
+        for file in file_path_list:
+            os.remove(file)
+
         print("DELETE END\n")
 
 
