@@ -45,6 +45,7 @@ logging.basicConfig(level=logging.DEBUG, format=" %(asctime)s - %(levelname)s - 
 def pp_dbg(*args):
     return logging.debug(*args)
 
+
 def file_name(file):
     """
     Ues week code [0-6] decide file name.
@@ -83,6 +84,7 @@ def main():
 
     time.sleep(0.5)
     sleep_second()
+
 
 if __name__ == '__main__':
     while True:

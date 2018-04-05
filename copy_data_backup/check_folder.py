@@ -26,6 +26,7 @@ logging.basicConfig(level=logging.DEBUG, format=" %(asctime)s - %(levelname)s - 
 def pp_dbg(*args):
     return logging.debug(*args)
 
+
 def checkXY():
     """
     Check x and y whether creat or connect
@@ -36,6 +37,7 @@ def checkXY():
         return True
     print("Please check x: and y:")
     return False
+
 
 def getAllFile(*args):
     fileList = []

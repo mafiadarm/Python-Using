@@ -25,11 +25,13 @@ import os
 class MakeDatabaseInfo:
     """
     鉴于保密问题，前置一个配置文件到固定位置，如果有就直接取，如果没有就新建
-    三种方式建立这个数据，[encoding="utf-8"]
-        实例化类，初始化数据，用initInfo生成，值必须是string
-        先用inputInfo生成文件，用getInfo读取
-        直接调用getInfo，如果没有文件，则调用inputInfo生成
+    四种方式建立这个数据，[encoding="utf-8"]
+        1 实例化类，初始化数据，用createInfo生成，值类型为string
+        2 先用createInfo生成文件，用getInfo读取
+        3 调用getInfo，如果没有文件，则调用createInfo生成
+        4 初始化initInfo
     文件的默认名为 dbf.txt
+    调用时，取BASE_DB 的值
     """
     def __init__(self):
         self.server = None
@@ -38,26 +40,34 @@ class MakeDatabaseInfo:
         self.database = None
         self.BASE_DB = {}
 
-        self.basePT = os.getcwd()
+        self.basePT = None
 
-    def inputInfo(self):
-        if not os.path.exists(self.basePT + "dbf.txt"):
-            with open("dbf.text", "a") as ww:
-                ww.write("server = %s\n" % input("server IP = "))
-                ww.write("user = %s\n" % input("username = "))
-                ww.write("password = %s\n" % input("password = "))
-                ww.write("database = %s\n" % input("database = "))
-        print("BATH_PATH in %s" % self.basePT)
+    def getPath(self):
+        if not self.basePT:
+            self.basePT = os.getcwd()
+        return os.path.join(self.basePT, "dbf.txt")
+
+    def createInfo(self):
+        path = self.getPath()
+        print("There have not specifies file, create now!")
+        with open(path, "a") as ww:
+            ww.write("server = %s\n" % input("server IP = "))
+            ww.write("user = %s\n" % input("username = "))
+            ww.write("password = %s\n" % input("password = "))
+            ww.write("database = %s\n" % input("database = "))
+        print("BATH_PATH is %s" % path)
 
     def getInfo(self):
-        if not os.path.exists(self.basePT + "dbf.txt"):
-            self.inputInfo()
-        with open(self.basePT + "dbf.txt", "r") as rr:
+        path = self.getPath()
+        if not os.path.exists(path):
+            self.createInfo()
+        with open(path, "r") as rr:
             for i in rr.readlines():
                 i = i.replace("\n", "").replace(" ", "")
                 i = i.split("=")
                 self.BASE_DB[i[0]] = i[1]
-        raise self.BASE_DB.keys() != {"server", "user", "password", "database"}
+        if self.BASE_DB.keys() != {"server", "user", "password", "database"}:
+            raise ("server", "user", "password", "database")
 
     def initInfo(self):
         self.BASE_DB = {

@@ -8,16 +8,17 @@
     Python version: 3.6.2  
 - - - - - - - - - - - - - - - 
     Description:
+    delete copied files and logging to log file
 ==============================
 """
 
 import logging
 import os
+from tqdm import tqdm
 
 __author__ = 'Loffew'
 
-logging.basicConfig(level=logging.DEBUG, format=" %(asctime)s - %(levelname)s - %(message)s")  # [filename]
-
+logging.basicConfig(level=logging.WARNING, format=" %(asctime)s - %(levelname)s - %(message)s", filename="log.txt")
 
 # logging.disable(logging.CRITICAL)
 
@@ -36,8 +37,9 @@ def deleteFiles(file_path_list):
         print("there is no files will to be delete.\n")
         return
     else:
-        for file in file_path_list:
+        for file in tqdm(file_path_list):
             os.remove(file)
+            pp_dbg("Delete %s\n" % file)
 
         print("DELETE END\n")
 

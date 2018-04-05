@@ -73,9 +73,9 @@ class Views(MakeData, ConnectPackage):
         """
         print("开始生成 %s年 %s每日销货汇总热力图" % (self.start_year, self.table_name))
 
-        heat_map = HeatMap("%s每日销货汇总热力图" % self.table_name, "%s年" % self.start_year, width=1200)
+        heat_map = HeatMap("%s每日销货汇总热力图" % self.table_name, "%s年" % self.start_year, width=1200, page_title="Calendar")
         heat_map.add("", self.data_dict, is_calendar_heatmap=True, visual_text_color='#000', visual_range_text=['', ''],
-                     visual_range=[0, max(self.data_dict, key=lambda x:x[1])], calendar_cell_size=['auto', 30],
+                     visual_range=[0, max(self.data_dict, key=lambda x:x[1])[1]], calendar_cell_size=['auto', 30],
                      is_visualmap=True, calendar_date_range=str(self.start_year), visual_pos="5%",
                      visual_top="75%", visual_orient='horizontal', is_toolbox_show=False)
         heat_map.render(path=self.BASE_PATH + "{}{}_data_hot.html".format(self.start_year, self.html_name))
@@ -88,7 +88,7 @@ class Views(MakeData, ConnectPackage):
         :return:
         """
         print("开始生成 %s年 全国%s 销货汇总热力图" % (self.start_year, self.table_name))
-        c_map = Map("全国%s 销货汇总热力图" % self.table_name, "%s年" % self.start_year, width=1200, height=600)
+        c_map = Map("全国%s 销货汇总热力图" % self.table_name, "%s年" % self.start_year, width=1200, height=600, page_title="Map")
         pro = [province for province, _ in self.data_list]
         val = [value for _, value in self.data_list]
 
@@ -104,12 +104,12 @@ class Views(MakeData, ConnectPackage):
         self.date_list [[x, y, v], [x, y, v]] x和y是坐标索引，从0开始计算，v是展示的值
         :return:
         """
-        bar3d = Bar3D("%s年度销货汇总总表" % self.table_name, width=1200, height=800)
+        bar3d = Bar3D("%s年度销货汇总总表" % self.table_name, width=1200, height=600, page_title="3D VIEW")
         range_color = ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf',
                        '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
-        bar3d.add("", self.x_list, self.y_list, [[d[0], d[1], d[2]] for d in self.date_list],
-                  is_visualmap=True, visual_range=[0, max(self.data_list, key=lambda x: x[2])[2]],
-                  visual_range_color=range_color, grid3d_width=200, grid3d_depth=80, is_toolbox_show=False)
+        bar3d.add("", self.x_list, self.y_list, self.data_list,
+                  is_visualmap=True, visual_range=[0, int(max(self.data_list, key=lambda x: x[2])[2])],
+                  visual_range_color=range_color, grid3d_width=200, grid3d_depth=80, is_toolbox_show=False, grid3d_shading='lambert')
         bar3d.render(path=self.BASE_PATH + "%s3D_display.html" % self.html_name)
 
     def view_growth_compare(self, score, **kwargs):
@@ -131,10 +131,10 @@ class Views(MakeData, ConnectPackage):
         self.date_list 对应项目列表的数据列表，一个项目对应一个数据[value1， value2]
         :return:
         """
-        pie = Pie("%s占比图" % self.table_name, width=900)
-        pie.add("", self.x_list, self.data_list, radius=[30, 75], is_random=True, label_text_color=None, is_label_show=True,
-                legend_top="95%", is_toolbox_show=False)
-        pie.render(path=self.BASE_PATH + "%s compare_line.html" % self.html_name)
+        pie = Pie("%s占比图" % self.table_name, "%s年" % self.year, width=900, page_title="Pie")
+        pie.add("", list(self.data_dict.keys()), list(self.data_dict.values()), radius=[30, 75], is_random=True,
+                label_text_color=None, is_label_show=True, legend_top="95%", is_toolbox_show=False)
+        pie.render(path=self.BASE_PATH + "%s compare_pie.html" % self.html_name)
 
     def view_bar_datazoom(self):
         """
@@ -143,9 +143,9 @@ class Views(MakeData, ConnectPackage):
         self.data_dicto_compare: {"name": [value],}
         """
         bar = Bar("日销货一览", width=1800, height=600, page_title="Sales bar")
-        for name, value in self.data_dicto_compare:
+        for name, value in self.data_dicto_compare.items():
             bar.add(name, self.date_list, value, is_label_show=False, is_datazoom_show=True, is_toolbox_show=False)
-        bar.render(path=self.BASE_PATH + "%s bar_datazoom.html".format(self.html_name))
+        bar.render(path=self.BASE_PATH + "%s bar_datazoom.html" % self.html_name)
 
 
 if __name__ == '__main__':

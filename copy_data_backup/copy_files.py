@@ -18,8 +18,7 @@ from verify_md5 import getFileMD5
 
 __author__ = 'Loffew'
 
-logging.basicConfig(level=logging.DEBUG, format=" %(asctime)s - %(levelname)s - %(message)s")  # [filename]
-
+logging.basicConfig(level=logging.INFO, format=" %(asctime)s - %(levelname)s - %(message)s", filename="log.txt")
 
 # logging.disable(logging.CRITICAL)
 
@@ -44,3 +43,6 @@ def copyFile(file, source, targ):
     target_md5 = getFileMD5(new_file)
     if source_md5 != target_md5:
         copyFile(file, source, targ)
+    else: pp_dbg(("%s md5 %s\n" % (file, source_md5), "%s md5 %s\n" % (new_file, target_md5)))
+
+

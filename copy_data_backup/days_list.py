@@ -42,7 +42,7 @@ def getWeekDay(func):
 def getFileDate(filename):
     """
     Use re module to get info.
-    Get creat datetime in filename.
+    Get datetime that create file in filename.
     :param filename:
     :return: like "20180909"
     """

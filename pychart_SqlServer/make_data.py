@@ -32,7 +32,7 @@ class MakeData:
         self.fields = None
         self.datatable = None
         self.condition = None
-        self.data = None
+        self.data = [[1,2],[3,4]]
 
         self.name = None
         self.year = None
@@ -142,11 +142,17 @@ class MakeData:
         """
         按月计算[2018-01]，对应每月数据[汇总结果]： 汇总结果取于data_dict.value
         生成数据为：
-            self.data_list=[index(month), index(year), value]
+            self.data_list=[index(day_month), index(year), value]
             self.y_list=[years]
             self.x_list=[months]
         """
-        self.data_list = [[int(day[4:6]) - 1, int(day[:4]) - self.year, money] for day, money in self.data_dict.items()]
+        for day, money in self.data_dict.items():
+            day_tuple = (int(day[4:6])-1, int(day[:4])-self.year)
+            if day_tuple in self.data_dicto_compare:
+                self.data_dicto_compare[day_tuple] += money
+            else: self.data_dicto_compare[day_tuple] = money
+
+        self.data_list = [[day[0], day[1], money] for day, money in self.data_dicto_compare.items()]
         self.y_list = sorted(list({day[:4] for day in self.data_dict.keys()}))
         self.x_list = ["{}月".format(i) for i in range(1, 13)]
 
@@ -166,6 +172,7 @@ class MakeData:
         self.data_list = [[self.date_list.index(day[4:]), int(day[:4]) - self.year, money]
                           for day, money in self.data_dict.items()]
         self.y_list = sorted(list({day[:4] for day in self.data_dict.keys()}))
+        self.x_list = self.date_list
 
     def make_summary_day_to_money(self):
         """
