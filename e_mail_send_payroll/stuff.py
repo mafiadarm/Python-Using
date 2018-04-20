@@ -30,6 +30,7 @@ def pp_dbg(*args):
 class Stuff:
     def __init__(self):
         self.stuff_info = {}
+        self.already = self.get_already()
 
     def get_email_addr(self):
         text = re.compile(r"^RX\d{5}|\w+@rosun.com.cn$")
@@ -44,3 +45,18 @@ class Stuff:
         else:
             input("当前文件夹没有《员工信息.xlsx》,按回车键退出")
             quit()
+
+    def get_already(self):
+        try:
+            with open("already_send.txt", "r+") as rr:
+                already = rr.readlines()
+        except FileNotFoundError:
+            return []
+
+        return {i.replace("\n", "") for i in already}
+
+
+if __name__ == '__main__':
+    p = Stuff()
+    p.get_email_addr()
+    print(p.stuff_info)
