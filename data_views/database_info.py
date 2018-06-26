@@ -40,7 +40,7 @@ class MakeDatabaseInfo:
         self.database = None
         self.BASE_DB = {}
 
-        self.basePT = None
+        self.basePT = None  # sqlserver login info files path
 
     def getPath(self):
         if not self.basePT:
