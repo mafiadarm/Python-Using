@@ -1,0 +1,13 @@
+以sellproxy为模板，拷贝修改即可
+再到main里面，sentence_list里以tuple形式添加变量名
+注意，顺序是mysql在前面，sqlserver在后面
+
+main文件里面注意mysql的数据库指向
+从sqlserver读取数据是从20141231以后开始
+
+新建database的时候，必须要用设置默认编码为utf-8
+    CREATE DATABASE `name` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci
+    CREATE DATABASE rosun DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci
+
+sql语句需要加r进行转义，不然执行的时候会因为引号报错
+注意字段和语句字段的对应，已经model设定的字段的对应

@@ -1,0 +1,26 @@
+{% extends "base.html"%}
+
+{% block drop_down %}
+    <div style="height:10px;"></div>
+    <div><a href="/sell/proxy_rank/" style="height: 20px; margin: 10px 0 0 10px">代理商排名（前10）</a></div>
+    <div style="height:10px;"></div>
+    <div><a href="/sell/proxy_record/" style="height: 20px; margin: 10px 0 0 10px">代理商交易概况</a></div>
+    <div style="height:10px;"></div>
+    <div><a href="/sell/proxy_record_10/" style="height: 20px; margin: 10px 0 0 10px">代理商交易概况（前10）</a></div>
+    <div style="height:10px;"></div>
+    <div><a href="/sell/proxy_client_rank/" style="height: 20px; margin: 10px 0 0 10px">客户排名（前10）</a></div>
+    <div style="height:10px;"></div>
+    <div><a href="/sell/proxy_client_record/" style="height: 20px; margin: 10px 0 0 10px">客户交易概况</a></div>
+    <div style="height:10px;"></div>
+    <div><a href="/sell/proxy_client_record_10/" style="height: 20px; margin: 10px 0 0 10px">客户交易概况（前10）</a></div>
+    <div style="height:10px;"></div>
+
+
+
+{% endblock drop_down %}
+
+{% block views %}
+
+    {{ myechart|safe }}
+
+{% endblock views %}

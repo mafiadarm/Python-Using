@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block headadd %}
+<script>
+    $(function () {
+        name_error = false;
+        pwd_error = false;
+
+        if ({{error_name}}==1){
+            $(".user_error").html("name error").show()
+        }
+
+        if ({{error_pwd}}==1){
+            $(".pwd_error").html("password error").show()
+        }
+
+        $(".name_input").blur(function () {
+            if($(".name_input").val().length==0){
+                $(".user_error").html("write username").show();
+                name_error=false;
+            }else{
+                $(".user_error").hide();
+                name_error = true
+            }
+        });
+
+        $(".pass_input").blur(function () {
+            if ($(this).val().length==0){
+                $(".pwd_error").html("put in password").show();
+                pwd_error = false
+            }else{
+                $(".pwd_error").hide();
+                pwd_error=true
+            }
+
+        });
+        // $(".pass_input").blur(function () {
+            //
+        // })
+    })
+</script>
+{% endblock headadd %}
+{% block body %}
+<div class="login_top clearfix">
+
+</div>
+
+<div class="login_form_bg">
+    <div class="login_form_wrap clearfix">
+{#        <div class="login_banner fl"></div>#}
+        <div class="login_form fr">
+            <div class="login_title clearfix">
+                <h1>用户登录</h1>
+            </div>
+            <div class="form_input">
+                <form action="/login/" method="post">
+                    {%csrf_token%}
+                    <input type="text" name="username" class="name_input" placeholder="请输入用户名">
+                    <div class="user_error">输入错误</div>
+                    <input type="password" name="pwd" class="pass_input" placeholder="请输入密码">
+                    <div class="pwd_error">输入错误</div>
+
+                    <input type="submit" name="" value="登录" class="input_submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

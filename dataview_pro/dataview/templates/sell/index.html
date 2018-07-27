@@ -1,0 +1,23 @@
+{% extends "base.html"%}
+
+{% block drop_down %}
+    <div style="height:10px;"></div>
+    <div><a href="/sell/direct/" style="height: 20px; margin: 10px 0 0 10px">直销数据</a></div>
+    <div style="height:10px;"></div>
+    <div><a href="/sell/proxy/" style="height: 20px; margin: 10px 0 0 10px">代理数据</a></div>
+    <div style="height:10px;"></div>
+    <div><a href="/sell/product_ratio/" style="height: 20px; margin: 10px 0 0 10px">产品数据</a></div>
+    <div style="height:10px;"></div>
+    <div><a href="/production/" style="height: 20px; margin: 10px 0 0 10px">采购数据</a></div>
+    <div style="height:10px;"></div>
+
+
+
+
+{% endblock drop_down %}
+
+{% block views %}
+
+    {{ myechart|safe }}
+
+{% endblock views %}

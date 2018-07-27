@@ -1,0 +1,23 @@
+{% extends "base.html"%}
+
+{% block drop_down %}
+    <div style="height:10px;"></div>
+    <div><a href="/production/buy_history_date/" style="height: 20px; margin: 10px 0 0 10px">采购历史金额</a></div>
+    <div style="height:10px;"></div>
+    <div><a href="/production/buy_history_price/" style="height: 20px; margin: 10px 0 0 10px">采购历史单价</a></div>
+    <div style="height:10px;"></div>
+    <div><a href="/production/usual_deal_amount_rank/" style="height: 20px; margin: 10px 0 0 10px">采购数量排名</a></div>
+    <div style="height:10px;"></div>
+    <div><a href="/production/usual_deal_adeal_rank/" style="height: 20px; margin: 10px 0 0 10px">采购笔数排名</a></div>
+    <div style="height:10px;"></div>
+    <div><a href="/production/usual_deal_money_rank/" style="height: 20px; margin: 10px 0 0 10px">采购金额排名</a></div>
+    <div style="height:10px;"></div>
+
+
+{% endblock drop_down %}
+
+{% block views %}
+
+    {{ myechart|safe }}
+
+{% endblock views %}

@@ -1,0 +1,23 @@
+{% extends "base.html"%}
+
+{% block drop_down %}
+    <div style="height:10px;"></div>
+    <div><a href="/sell/product_ratio_direct/" style="height: 20px; margin: 10px 0 0 10px">直销占比</a></div>
+    <div style="height:10px;"></div>
+    <div><a href="/sell/product_ratio_proxy/" style="height: 20px; margin: 10px 0 0 10px">代理占比</a></div>
+    <div style="height:10px;"></div>
+    <div><a href="/sell/product_ranking/" style="height: 20px; margin: 10px 0 0 10px">产品总排名（前20）</a></div>
+    <div style="height:10px;"></div>
+    <div><a href="/sell/product_pile/" style="height: 20px; margin: 10px 0 0 10px">产品堆叠</a></div>
+    <div style="height:10px;"></div>
+    <div><a href="/sell/product_record/" style="height: 20px; margin: 10px 0 0 10px">产品销售记录</a></div>
+    <div style="height:10px;"></div>
+
+
+{% endblock drop_down %}
+
+{% block views %}
+
+    {{ myechart|safe }}
+
+{% endblock views %}
