@@ -291,6 +291,8 @@ def direct_staff_ranking(request):
     for i in spi:
         if i.staff in count:
             count[i.staff] += int(i.total_price)
+            # if i.staff == "王彬":
+            #     print(i.sell_date, i.consumer, i.article, i.staff, i.total_price)
         else:
             count[i.staff] = int(i.total_price)
 
@@ -445,7 +447,11 @@ def datazoom(spi, year, name):
 
     value_list = [0] * len(day_list)
     for i in spi:
-        value_list[day_list.index(str(i.sell_date))] = int(i.total_price)
+        flag = value_list[day_list.index(str(i.sell_date))]
+        if flag:
+            value_list[day_list.index(str(i.sell_date))] += int(i.total_price)
+        else:
+            value_list[day_list.index(str(i.sell_date))] = int(i.total_price)
     # print(value_list)
     barzoom = Bar()
     barzoom.add(name + " " + year + " 交易概况", day_list, value_list,
@@ -566,10 +572,10 @@ def direct_staff_record(request):
         yy = request.POST["year"]
         cl = request.POST["name"]
 
-        if yy:
-            spi = [i for i in spi if str(i.sell_date)[:4] == str(yy)]
         if cl:
             spi = [i for i in spi if i.staff == cl]
+        if yy:
+            spi = [i for i in spi if str(i.sell_date)[:4] == str(yy)]
 
     context = dict(
         myechart=datazoom(spi, yy, cl),
@@ -812,8 +818,8 @@ def direct_staff_record_ten(request):
     for k, v in count.items():
         splite_list.append([k, v])
 
-    splite_list = splite_list[:10]
     splite_list = sorted(splite_list, key=lambda x: x[1], reverse=True)
+    splite_list = splite_list[:10]
 
     consumer_ten = [name for name, _ in splite_list]
 

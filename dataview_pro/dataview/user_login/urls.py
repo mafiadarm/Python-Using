@@ -3,8 +3,9 @@ from . import views
 
 urlpatterns = [
 
-    re_path(r'^$', views.login),
-    re_path(r'^login/$', views.login_handle),
+    re_path(r'^$', views.index),
+    re_path(r'^login/$', views.login),
+    re_path(r'^login_handle/$', views.login_handle),
     re_path(r'^logout/$', views.logout),
 
 ]

@@ -21,6 +21,8 @@ urlpatterns = [
     re_path(r'^sell/', include('sell.urls')),
     re_path(r'^', include('user_login.urls')),
     re_path(r'^production/', include('production.urls')),
+    re_path(r'^finance/', include('finance.urls')),
+    re_path(r'^repertory/', include('repertory.urls')),
     # re_path(r'^finance/', include('finance.urls')),
     # re_path(r'^produce/', include('produce.urls')),
     # re_path(r'^storage/', include('storage.urls')),

@@ -1,0 +1,47 @@
+{% extends "base.html"%}
+
+{% block drop_down %}
+    <form method="post" action="">
+    {% csrf_token %}
+
+    <br>
+    <p>年份</p>
+    <select name="year">
+        {% if date_year != "" %}
+            <option value="">{{ date_year }}</option>
+        {% else %}
+            <option value="">请选择</option>
+        {% endif %}
+        {%  for sd in sell_date  %}
+
+            <option value="{{ sd }}">{{ sd }}</option>
+
+        {% endfor %}
+
+    </select>
+    <div style="height:20px;"></div>
+    <p>月份</p>
+    <select name="name" style="width: 160px;">
+        {% if consumer_name != "" %}
+            <option value="">{{ consumer_name }}</option>
+        {% else %}
+            <option value="">请选择</option>
+        {% endif %}
+        {%  for num in consumer  %}
+            <option value="{{ num }}">{{ num }}</option>
+        {% endfor %}
+
+    </select>
+    <div style="height:20px;"></div>
+
+    <input type="submit" value="查询">
+
+    </form>
+
+{% endblock %}
+
+{% block views %}
+
+    {{ myechart|safe }}
+
+{% endblock views %}

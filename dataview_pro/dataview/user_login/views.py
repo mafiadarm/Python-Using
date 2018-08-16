@@ -4,6 +4,8 @@ from hashlib import md5
 
 
 # Create your views here.
+def index(request):
+    return redirect("/sell/")
 
 
 def login(request):
@@ -37,5 +39,5 @@ def login_handle(request):
 
 def logout(request):
     request.session.flush()
-    return redirect("/")
+    return redirect("/login/")
 
