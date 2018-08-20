@@ -38,7 +38,7 @@ def view_bar_3D(spi, name=str()):
     y_list = sorted(list(y_set))
     x_list = ["{}月".format(i) for i in range(1, 13)]
 
-    bar3d = Bar3D(name + "销货汇总表", width=1000, height=500)
+    bar3d = Bar3D(name + "销货汇总", width=1000, height=500)
     range_color = ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf',
                    '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
     # print(x_list, y_list, data_list)

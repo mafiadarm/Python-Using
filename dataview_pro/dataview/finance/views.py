@@ -87,7 +87,7 @@ def pie(spi, name):
 
 def depar_dict():
     dpi = DepartmentInfo.objects.all()
-    dd = {i.depart_number:i.depart_name for i in dpi}
+    dd = {i.depart_number.strip(): i.depart_name.strip() for i in dpi}
     return dd
 
 
@@ -120,11 +120,11 @@ def department(request):
     pie_dict = {}
     for i in spi:
         if i[0] != "":
-            d = dpi[i[0]]
+            d = dpi.get(i[0].strip())
         if d in pie_dict:
-            pie_dict[d] += float(i[1])
+            pie_dict[d] += float("%.2f" % i[1])
         else:
-            pie_dict[d] = float(i[1])
+            pie_dict[d] = float("%.2f" % i[1])
 
     context = dict(
         myechart=pie(sorted(pie_dict.items(), key=lambda x: x[1], reverse=True), "销售比例"),
