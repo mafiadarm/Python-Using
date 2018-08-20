@@ -31,7 +31,7 @@ def choice_object():
     num_name = ProcurementInfo.objects.values_list("art_num", "article")
     num_name = set(num_name)
     num_name = sorted(num_name, key=lambda x: x[0])
-    num_name = [" ".join(i) for i in num_name]
+    num_name = [" ".join([j.strip() for j in i]) for i in num_name]
     return date, num_name
 
 
@@ -180,9 +180,10 @@ def usual_deal(spi, num_name, title):
     name_list = []
     value_list = []
     for num, value in spi:
-        name_list.append(num_name_dict[num])
+        name = num_name_dict.get(num.strip())
+        name_list.append(name)
         value_list.append(value)
-
+ 
     return rank_bar(name_list, value_list, title)
 
 
