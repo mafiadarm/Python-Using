@@ -20,11 +20,23 @@ data_views
 
 ​	数据可视化的尝试性使用，对公司数据进行分析
 
+dataview_pro
 
+​	数据可视化项目化
+
+​		包含数据从sqlserver迁移到mysql，牵涉视图化作为中间处理	
+
+​		Django项目包含用户管理与数据展示
+
+​			用户管理包含用户注册，登陆，修改密码，后台用户列表展示，信息修改及审核[通过修改状态码]
+
+​			数据展示包含线性，柱状，3D柱状，数据集，表格；范围包含销售，生产，采购，财务
+
+​			一些设置，包含Nginx，uwsgi，静态文件的配置，cookie，session的处理等
 
 dataBase_Form_import_export.py
 
-​	sqlserver的python包的尝试性使用
+​	sqlserver的python包的尝试性使用，已经应用到dataview项目
 
 ListeRaid.py
 

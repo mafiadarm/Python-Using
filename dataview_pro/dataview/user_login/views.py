@@ -87,6 +87,7 @@ def login_handle(request):
 
             request.session["user_id"] = users[0].unumber
             request.session["user_name"] = users[0].uname
+			request.session.set_expiry(0) 
             return correct
         else:
             context = {"title": "user login", "error_name": 0, "error_pwd": 1, "uname": unumber, "uwpd": upwd, }
