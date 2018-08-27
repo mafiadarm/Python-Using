@@ -135,7 +135,7 @@ def buy_history_date(request):
     context = dict(
         myechart=pattern,
         consumer=num_name,
-        sell_date=date,
+       # sell_date=date,
         date_year=choice_year,
         consumer_name=choice_name,
     )
@@ -162,7 +162,7 @@ def buy_history_price(request):
     context = dict(
         myechart=pattern,
         consumer=num_name,
-        sell_date=date,
+       # sell_date=date,
         date_year=choice_year,
         consumer_name=choice_name,
     )
