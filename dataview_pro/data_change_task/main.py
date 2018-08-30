@@ -59,9 +59,16 @@ def connect_database(database):
         mysql_connect = MysqlUse(**mysql_data_info)
         print("MYSQL CONNECT!")
     except Exception as Ex:
-        print("PLEASE CHECK CONNECT INFORMATION OF SQLSERVER", Ex)
-
-    return mysql_connect, sql_connect
+        print("PLEASE CHECK CONNECT INFORMATION OF MYSQL", Ex)
+    
+    if mysql_connect and sql_connect:
+        print("get mysql_connect and sql_connect!")
+        return mysql_connect, sql_connect
+    else:
+        print("get again!")
+        time.sleep(3)
+        return connect_database(database)
+        
 
 
 def main(database_name, *args):
