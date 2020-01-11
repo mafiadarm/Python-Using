@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock title %}
+{% block number %}
+
+{% if one %}
+    <div class="congra_level"><h3 id="text3d_small">一等奖</h3></div>
+    <div id="congra_jiangpiao">
+        {% for num_one in one %}
+            <h2 id="text3d_small">{{ num_one }}</h2>
+        {% endfor %}
+    </div>
+{% endif %}
+<br>
+
+{% if two %}
+    <div class="congra_level"><h3 id="text3d_small">二等奖</h3></div>
+    <div id="congra_jiangpiao">
+        {% for num_two in two %}
+            {% if forloop.counter|divisibleby:10 %}
+                <h2 id="text3d_small">{{ num_two }}</h2>
+                </div>
+                <div id="congra_jiangpiao">
+            {% else %}
+                <h2 id="text3d_small">{{ num_two }}</h2>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if thr %}
+    <div class="congra_level"><h3 id="text3d_small">三等奖</h3></div>
+    <div id="congra_jiangpiao">
+        {% for num_thr in thr %}
+            {% if forloop.counter|divisibleby:10 %}
+                <h2 id="text3d_small">{{ num_thr }}</h2>
+                </div>
+                <div id="congra_jiangpiao">
+            {% else %}
+                <h2 id="text3d_small">{{ num_thr }}</h2>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock number %}
+{% block button %}{% endblock button %}
