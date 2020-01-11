@@ -11,7 +11,7 @@ window.onload = function () {
     var divVal7 = document.getElementById("show7");
     var divVal8 = document.getElementById("show8");
     var divVal9 = document.getElementById("show9");
-    var divVal0 = document.getElementById("show0");
+    var divVal0 = document.getElementById("show10");
     var interV;
     sessionStorage.setItem("status", 0);
 

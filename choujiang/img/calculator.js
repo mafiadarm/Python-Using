@@ -1,10 +1,10 @@
 //构造一个数字
 function random_one() {
     //x上限，y下限
-    var x = 9999999;
+    var x = 99999999;
     var y = 0;
     var k = parseInt(Math.random() * (x - y + 1) + y);
-    var v = PrefixInteger(k, 7);
+    var v = PrefixInteger(k, 8);
     return v;
 }
 

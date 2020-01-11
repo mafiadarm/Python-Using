@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+
+{% block style %}{% endblock style %}
+{% block title %}{% endblock title %}
+{% block number %}
+    <div class="congra_level">
+        <h3>用户登录</h3>
+    </div>
+    <div class="form_input">
+        <form action="{% url 'choujiang:login_verify' %}" method="post">
+            {%csrf_token%}
+            <label>
+                <input type="text" name="user_name" class="name_input" placeholder="请输入账号">
+            </label>
+            <div class="user_error"><br></div>
+            <label>
+                <input type="password" name="pwd" class="pass_input" placeholder="请输入密码">
+            </label>
+            <div class="pwd_error"><br></div>
+            <input type="submit" name="" value="登录" class="input_submit">
+        </form>
+    </div>
+{% endblock number %}
+{% block button %}{% endblock button %}
+
+{% block script %}
+<script>
+    $(function(){
+        if({{ error_name }}===1){
+            $(".user_error").html("name error").show()
+        }
+
+        if({{ error_pwd }}===1){
+            $(".pwd_error").html("password error").show()
+        }
+
+        $(".name_input").blur(function () {
+            if ($(".name_input").val().length===0){
+                    $(".user_error").html("<h2>write in username</h2>").show();
+            }else{
+                $(".user_error").hide();
+
+            }
+        });
+
+        $(".pass_input").blur(function () {
+            if($(this).val().length===0){
+                    $(".pwd_error").html("<h2>put in password</h2>").show();
+
+            }else{
+                $(".pwd_error").hide();
+            }
+        });
+    })
+</script>
+{% endblock script %}

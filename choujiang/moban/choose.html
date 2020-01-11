@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock title %}
+
+{% block number %}
+    <div class="number_style" id="text3d">
+        <h2><a href="{% url 'choujiang:level1' %}">一等奖</a></h2>
+        <h2><a href="{% url 'choujiang:level2' %}">二等奖</a></h2>
+        <h2><a href="{% url 'choujiang:level3' %}">三等奖</a></h2>
+    </div>
+{% endblock number %}
+
+{% block button %}{% endblock button %}
+
+{% block script %}{% endblock script %}

@@ -8,8 +8,10 @@
     <META http-equiv=Expires content=0>
     <link rel="stylesheet" type="text/css" href="/img/style.css" />
     <link rel="stylesheet" type="text/css" href="/img/effects.css" />
+    {% block style %}{% endblock style %}
 </head>
 <body onContextMenu="return false" onSelectStart="return false">
+{#<body>#}
 
     {% block title %}<div class="level" id="text3d"><h3>{{ level }}</h3></div>{% endblock title %}
 

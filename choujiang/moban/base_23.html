@@ -2,18 +2,13 @@
 
 {% block number %}
 <div class="number_style" id="text3d">
-    <h2 id="show1">0000000</h2>
-    <h2 id="show2">0000000</h2>
-    <h2 id="show3">0000000</h2>
-    <h2 id="show4">0000000</h2>
-    <h2 id="show5">0000000</h2>
-</div>
-<div class="number_style" id="text3d">
-    <h2 id="show6">0000000</h2>
-    <h2 id="show7">0000000</h2>
-    <h2 id="show8">0000000</h2>
-    <h2 id="show9">0000000</h2>
-    <h2 id="show0">0000000</h2>
+    {% for i in how %}
+        <h2 id="show{{ forloop.counter }}">恭喜发财</h2>
+        {% if forloop.counter|divisibleby:split %}
+            </div>
+            <div class="number_style" id="text3d">
+        {% endif %}
+    {% endfor %}
 </div>
 {% endblock number %}
 
