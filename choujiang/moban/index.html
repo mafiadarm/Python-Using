@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
-{% block title %}{% endblock title %}
+{% block page_title %}年会系统{% endblock page_title %}
+
 {% block style %}
     <style>
         html, body {
@@ -21,14 +22,19 @@
         }
     </style>
 {% endblock style %}
+
 {% block number %}
     <div class="number_style" id="text3d">
-        <h2><a href="{% url 'choujiang:level1' %}">一等奖</a></h2>
-        <h2><a href="{% url 'choujiang:level2' %}">二等奖</a></h2>
-        <h2><a href="{% url 'choujiang:level3' %}">三等奖</a></h2>
+        <h2><a href="{% url 'choujiang:c' %}">查询抽奖结果</a></h2>
+    </div>
+    <div class="number_style" id="text3d">
+        <h2><a href="{% url 'toupiao:vote_index' %}">节目投票</a></h2>
+    </div>
+    <div class="number_style" id="text3d">
+        <h2><a href="{% url 'toupiao:get_view' %}">查询投票结果</a></h2>
     </div>
 {% endblock number %}
 
 {% block button %}{% endblock button %}
 
-{% block script %}{% endblock script %}
+{% block other_script %}{% endblock other_script %}

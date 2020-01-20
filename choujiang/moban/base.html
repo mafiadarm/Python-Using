@@ -2,29 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>D&B抽奖</title>
+    <title>{% block page_title %}D&B抽奖{% endblock page_title %}</title>
     <META http-equiv=Pragma content=no-cache>
     <META http-equiv=Cache-Control content=no-cache>
     <META http-equiv=Expires content=0>
+    {% block style %}{% endblock style %}
     <link rel="stylesheet" type="text/css" href="/img/style.css" />
     <link rel="stylesheet" type="text/css" href="/img/effects.css" />
-    {% block style %}{% endblock style %}
+
 </head>
 <body onContextMenu="return false" onSelectStart="return false">
 {#<body>#}
 
-    {% block title %}<div class="level" id="text3d"><h3>{{ level }}</h3></div>{% endblock title %}
+    {% block title %}
+        <div class="level" id="text3d"><h3>{{ level }}</h3></div>
+    {% endblock title %}
 
     {% block number %}{% endblock number %}
 
     {% block button %}
-    <div class="anniu" id='go_find'></div>
+        <div class="anniu" id='go_find'></div>
     {% endblock button %}
 
     {% block script %}{% endblock script %}
-    <script type="text/javascript" src="/img/jq.js"></script>
-    <script type="text/javascript" src="/img/calculator.js"></script>
-    <script type="text/javascript" src="/img/test.js"></script>
+
+    {% block other_script %}
+        <script type="text/javascript" src="/img/jq.js"></script>
+        <script type="text/javascript" src="/img/calculator.js"></script>
+    {% endblock other_script %}
 
 </body>
 </html>

@@ -14,5 +14,5 @@ urlpatterns = [
 
     re_path(r'^login/$', login),
     re_path(r'^l/$', login_handle, name='login_verify'),
-    re_path(r'', index),
+    re_path(r'', index, name='index'),
     ]

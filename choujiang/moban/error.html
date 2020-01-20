@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{% endblock title %}
+{% block page_title %}年会投票{% endblock page_title %}
 {% block style %}
     <style>
         html, body {
@@ -21,14 +21,17 @@
         }
     </style>
 {% endblock style %}
-{% block number %}
-    <div class="number_style" id="text3d">
-        <h2><a href="{% url 'choujiang:level1' %}">一等奖</a></h2>
-        <h2><a href="{% url 'choujiang:level2' %}">二等奖</a></h2>
-        <h2><a href="{% url 'choujiang:level3' %}">三等奖</a></h2>
-    </div>
-{% endblock number %}
+{% block title %}
+    <div class="congra_level" id="text3d"><h3>{{ error }}</h3></div>
+    {% if check == 1 %}
+        <div id="congra_jiangpiao"><h2 id="text3d_small"><a href="{% url 'toupiao:vote_index' %}">返回</a></h2></div>
+    {% else %}
+        <div id="congra_jiangpiao"><h2 id="text3d_small"><a href="{% url 'choujiang:index' %}">返回</a></h2></div>
+    {% endif %}
+
+{% endblock title %}
+{% block number %}{% endblock number %}
 
 {% block button %}{% endblock button %}
 
-{% block script %}{% endblock script %}
+{% block other_script %}{% endblock other_script %}

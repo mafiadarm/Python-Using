@@ -4,7 +4,7 @@ function random_one() {
     var x = 99999999;
     var y = 0;
     var k = parseInt(Math.random() * (x - y + 1) + y);
-    var v = PrefixInteger(k, 8);
+    var v = PrefixInteger(k, 7);
     return v;
 }
 

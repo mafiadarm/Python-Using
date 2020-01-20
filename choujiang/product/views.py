@@ -17,7 +17,7 @@ def creat_num(level):
     v = ''
     while flag:
         k = random.randint(1, 1000)
-        v = "2020" + "{:04d}".format(k)
+        v = "000" + "{:04d}".format(k)
         if not Number.objects.filter(num=v).count():
             flag = 0
 
@@ -74,7 +74,7 @@ def choose(requset):
 
 def congratulations(request):
     one = Number.objects.filter(level='一等奖').values_list('num').order_by('num')[:2]
-    two = Number.objects.filter(level='二等奖').values_list('num').order_by('num')[:10]
+    two = Number.objects.filter(level='二等奖').values_list('num').order_by('num')[:6]
     thr = Number.objects.filter(level='三等奖').values_list('num').order_by('num')[:30]
     one_name = [i[0] for i in one]
     two_name = [i[0] for i in two]
@@ -84,9 +84,7 @@ def congratulations(request):
 
 
 def index(request):
-    name = request.COOKIES.get("name", "")
-    context = {"title": "Login", "error_name": 0, "error_pwd": 0, "name": name}
-    return render(request, "login.html", context)
+    return render(request, "index.html")
 
 
 def login_handle(request):
@@ -119,4 +117,4 @@ def make_pwd(pwd):
 
 
 if __name__ == '__main__':
-    print(make_pwd('2020dbup'))
+    print(make_pwd('w9cmafia'))

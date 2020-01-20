@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Number
-from .models import UserInfo
+from .models import Number, UserInfo
+
 
 # Register your models here.
 

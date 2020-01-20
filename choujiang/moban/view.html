@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block style %}
     <style>
         html, body {
@@ -11,7 +12,7 @@
         }
 
         body {
-            background: url('/img/10_4_none.jpg') no-repeat center center fixed;
+            background: url('/img/none.jpg') no-repeat center center fixed;
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
@@ -21,12 +22,8 @@
 {% endblock style %}
 
 {% block number %}
-    <div id="one_jiangpiao">
-        <h2 id="text3d">{{ jiangpiaohaoma }}</h2>
+    <div class="level">
+        <iframe src="{% url 'toupiao:bar' %}" style="width:100%;height:600px;" name="iframe_a"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
     </div>
-    <div id="one_jiangpiao"></div>
 {% endblock number %}
-
-{% block script %}
-    <script type="text/javascript" src="/img/for_one.js"></script>
-{% endblock script %}
+{% block button %}{% endblock button %}
